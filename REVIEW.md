@@ -22,5 +22,6 @@
 | 18 | `/attendance` list | It loaded all matching docs into memory and sorted in Python. | Large collections were slow and explain could not show the intended index plan. | Use MongoDB find/sort/skip/limit and filtered count. |
 | 19 | `/attendance` list | It did not validate page bounds or `date_from > date_to`. | Bad dates or reversed ranges did not return 422. | Add query validation and shared builder. |
 | 20 | Indexes | No assignment indexes were created. | Explain plans could use collection scans and races were not guarded. | Create the required indexes at startup, idempotently. |
+| 21 | Department trend | Missing dates and headcounts were assembled in Python, contrary to the contract's MongoDB aggregation requirement. | Inspect the trend pipeline or run a range containing days with no logs. | Generate the date series, daily headcounts, presence totals, and rolling average in MongoDB. |
 
 Checked and found fine: `load_dotenv()` did not override real environment variables, which matches the assignment. ISO `YYYY-MM-DD` string comparison is also correct for date ranges because the format sorts lexicographically in calendar order.

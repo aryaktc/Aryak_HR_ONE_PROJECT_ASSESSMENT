@@ -9,3 +9,5 @@
 4. **Headcount.** Department summary starts from `employees`, filters by `joined_on <= month_end`, then `$lookup`s logs with `preserveNullAndEmptyArrays`; employees with zero logs still stay in the group.
 
 5. **100x data.** I would add monthly rollup collections for analytics, consider covered indexes for common filters, and bucket or archive old attendance logs.
+
+6. **Department trend.** Generate the requested calendar rows inside MongoDB, look up the employees and attendance for each day, and calculate the seven-row moving average with `$setWindowFields`. The API only applies the contract's half-up output rounding; Python does not fill date gaps or compute headcounts.
